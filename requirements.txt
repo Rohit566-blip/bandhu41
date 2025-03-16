@@ -15,6 +15,7 @@ keras==2.15.0
 libclang==16.0.6
 Markdown==3.6
 ml-dtypes==0.3.1
+nltk==3.8.1  # Added NLTK for NLP support
 numpy==1.26.4
 oauthlib==3.2.2
 opt-einsum==3.3.0
@@ -35,4 +36,4 @@ typing_extensions==4.10.0
 urllib3==2.2.1
 Werkzeug==3.0.2
 wrapt==1.14.1
-gunicorn  # Added Gunicorn for deployment
+gunicorn==21.2.0  # Added version for deployment
