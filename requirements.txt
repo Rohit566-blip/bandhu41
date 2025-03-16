@@ -36,5 +36,6 @@ typing_extensions==4.10.0
 urllib3==2.2.1
 Werkzeug==3.0.2
 wrapt==1.14.1
-gunicorn==21.2.0  # Added version for deployment
-gdown==5.1.0  # 🔥 ADDED to fix ModuleNotFoundError
+gunicorn==21.2.0  # Added for deployment
+gdown==5.1.0  # Fixes previous gdown issue
+flask==3.0.2  # 🔥 Added Flask to fix ModuleNotFoundError
