@@ -39,3 +39,4 @@ wrapt==1.14.1
 gunicorn==21.2.0  # Added for deployment
 gdown==5.1.0  # Fixes previous gdown issue
 flask==3.0.2  # 🔥 Added Flask to fix ModuleNotFoundError
+mysql-connector-python==8.3.0  # 🔥 Added MySQL connector
