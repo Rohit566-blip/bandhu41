@@ -1,42 +1,56 @@
-absl-py==2.1.0
-astunparse==1.6.3
-cachetools==5.3.3
-certifi==2024.2.2
-charset-normalizer==3.3.2
-flatbuffers==23.5.26
-gast==0.5.4
-google-auth==2.28.1
-google-auth-oauthlib==1.2.0
-google-pasta==0.2.0
-grpcio==1.62.1
-h5py==3.10.0
-idna==3.6
-keras==2.15.0
-libclang==16.0.6
-Markdown==3.6
-ml-dtypes==0.3.1
-nltk==3.8.1  # Added NLTK for NLP support
-numpy==1.26.4
-oauthlib==3.2.2
-opt-einsum==3.3.0
-packaging==24.0
-protobuf==4.23.4
-pyasn1==0.6.0
-pyasn1-modules==0.4.0
-requests==2.31.0
-requests-oauthlib==1.3.1
-rsa==4.9
-six==1.16.0
-tensorboard==2.15.1
-tensorboard-data-server==0.7.2
-tensorflow==2.15.1
-tensorflow-estimator==2.15.0
-termcolor==2.4.0
-typing_extensions==4.10.0
-urllib3==2.2.1
-Werkzeug==3.0.2
-wrapt==1.14.1
-gunicorn==21.2.0  # Added for deployment
-gdown==5.1.0  # Fixes previous gdown issue
-flask==3.0.2  # 🔥 Added Flask to fix ModuleNotFoundError
-mysql-connector-python==8.3.0  # 🔥 Added MySQL connector
+# Core Dependencies
+Flask==3.0.2  # Web framework
+gunicorn==21.2.0  # WSGI server for deployment
+mysql-connector-python==8.3.0  # MySQL database connector
+
+# Machine Learning & NLP
+tensorflow==2.15.1  # Deep learning framework
+keras==2.15.0  # High-level neural networks API
+nltk==3.8.1  # Natural Language Toolkit
+numpy==1.26.4  # Numerical computations
+h5py==3.10.0  # HDF5 support for saving models
+
+# Data Processing
+pandas==2.2.1  # Data manipulation (optional, but recommended)
+scikit-learn==1.4.1.post1  # Machine learning utilities (optional)
+
+# Utilities
+requests==2.31.0  # HTTP requests
+beautifulsoup4==4.12.2  # HTML parsing
+python-dotenv==1.0.0  # Environment variable management
+
+# TensorFlow Extras
+tensorboard==2.15.1  # Visualization toolkit
+tensorflow-estimator==2.15.0  # Estimator API
+protobuf==4.23.4  # Protocol buffers
+
+# Authentication & Security
+google-auth==2.28.1  # Google authentication
+google-auth-oauthlib==1.2.0  # OAuth support for Google auth
+oauthlib==3.2.2  # OAuth support
+rsa==4.9  # RSA encryption
+
+# Other Dependencies
+absl-py==2.1.0  # Abseil Python libraries
+astunparse==1.6.3  # AST unparsing
+cachetools==5.3.3  # Cache tools
+certifi==2024.2.2  # SSL certificates
+charset-normalizer==3.3.2  # Character encoding normalization
+flatbuffers==23.5.26  # Serialization library
+gast==0.5.4  # Graph AST
+google-pasta==0.2.0  # Python AST manipulations
+grpcio==1.62.1  # gRPC support
+idna==3.6  # Internationalized Domain Names
+libclang==16.0.6  # Clang bindings
+Markdown==3.6  # Markdown support
+ml-dtypes==0.3.1  # Machine learning data types
+opt-einsum==3.3.0  # Optimized Einstein summation
+packaging==24.0  # Packaging utilities
+pyasn1==0.6.0  # ASN.1 library
+pyasn1-modules==0.4.0  # ASN.1 modules
+six==1.16.0  # Python 2 and 3 compatibility
+termcolor==2.4.0  # Terminal color formatting
+typing_extensions==4.10.0  # Type hints support
+urllib3==2.2.1  # URL handling
+Werkzeug==3.0.2  # WSGI utilities
+wrapt==1.14.1  # Decorators and wrappers
