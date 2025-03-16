@@ -1,9 +1,10 @@
 Flask==3.0.0
 numpy==1.26.4
 tensorflow==2.16.1
-keras>=3.0.0  # Changed from 2.15.0 to 3.0.0 or higher
+keras>=3.0.0  # Removed version conflict with TensorFlow
 nltk==3.8.1
 requests==2.31.0
 bs4==0.0.2
 gunicorn==21.2.0
 mysql-connector-python==8.3.0
+gdown  # Added missing dependency
