@@ -14,12 +14,12 @@ idna==3.6
 keras==2.15.0
 libclang==16.0.6
 Markdown==3.6
-ml-dtypes==0.3.1  # ✅ Downgraded to fix TensorFlow 2.15.1 conflict
+ml-dtypes==0.3.1
 numpy==1.26.4
 oauthlib==3.2.2
 opt-einsum==3.3.0
 packaging==24.0
-protobuf==4.25.3
+protobuf==4.23.4  # ✅ Downgraded to fix TensorBoard conflict
 pyasn1==0.6.0
 pyasn1-modules==0.4.0
 requests==2.31.0
@@ -28,7 +28,7 @@ rsa==4.9
 six==1.16.0
 tensorboard==2.15.1
 tensorboard-data-server==0.7.2
-tensorflow==2.15.1  # ✅ Ensure it's 2.15.1, as newer versions cause conflicts
+tensorflow==2.15.1
 tensorflow-estimator==2.15.0
 termcolor==2.4.0
 typing_extensions==4.10.0
