@@ -1,4 +1,3 @@
-import os
 import nltk
 import pickle
 import numpy as np
@@ -17,45 +16,28 @@ nltk.download('popular')
 # Initialize the lemmatizer
 lemmatizer = WordNetLemmatizer()
 
-# Set base directory
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-# Define paths
-model_path = os.path.join(basedir, 'chatbot', 'model.h5')
-data_path = os.path.join(basedir, 'chatbot', 'data.json')
-texts_path = os.path.join(basedir, 'chatbot', 'texts.pkl')
-labels_path = os.path.join(basedir, 'chatbot', 'labels.pkl')
-
 # Load the model and data
-try:
-    model = load_model(model_path)
-    intents = json.loads(open(data_path).read())
-    words = pickle.load(open(texts_path, 'rb'))
-    classes = pickle.load(open(labels_path, 'rb'))
-    print("✅ Model and data loaded successfully!")
-except Exception as e:
-    print(f"❌ Error loading model or data: {e}")
-    model = None
-    intents = None
-    words = []
-    classes = []
+model = load_model('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/model.h5')
+intents = json.loads(open('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/data.json').read())
+words = pickle.load(open('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/texts.pkl', 'rb'))
+classes = pickle.load(open('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/labels.pkl', 'rb'))
 
 # MySQL database connection configuration
 db_config = {
-    'host': os.getenv('DB_HOST', 'localhost'),
-    'user': os.getenv('DB_USER', 'root'),
-    'password': os.getenv('DB_PASSWORD', 'rohit41'),
-    'database': os.getenv('DB_NAME', 'chatbot')
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'Rohit41',
+    'database': 'chatbot'
 }
 
 def connect_db():
     """Establish a connection to the MySQL database"""
     try:
         conn = mysql.connector.connect(**db_config)
-        print("✅ Database connection established.")
+        print("Database connection established.")
         return conn
     except mysql.connector.Error as err:
-        print(f"❌ Database connection error: {err}")
+        print(f"Database connection error: {err}")
         return None
 
 def clean_up_sentence(sentence):
@@ -86,11 +68,11 @@ def predict_class(sentence, model):
         results.sort(key=lambda x: x[1], reverse=True)
         return classes[results[0][0]] if results else None
     except Exception as e:
-        print(f"❌ Error in prediction: {e}")
+        print(f"Error in prediction: {e}")
         return None
     
 def get_sentiment_response(sentiment):
-    """Lookup the appropriate response based on sentiment"""
+    # Lookup the appropriate response based on sentiment
     for i in intents['intents']:
         if i['tag'] == 'sentiment':
             if sentiment == 'positive':
@@ -145,10 +127,34 @@ def chatbot_response(msg):
         sentiment_response = requests.post("https://sentiment-analysis-vsj7.onrender.com", data={"text": msg})
         soup = BeautifulSoup(sentiment_response.text, 'html.parser')
        
+        # Print out the HTML response from the API in a tabular form
+        print("HTML Response:")
+        print("----------------")
+        tables = soup.find_all('table')
+        for table in tables:
+            rows = table.find_all('tr')
+            for row in rows:
+                cols = row.find_all('td')
+                print("|", end="")
+                for col in cols:
+                    print(col.text.strip().ljust(20), end="|")
+                print()
+            print("-" * 80)
+       
+        # Find all HTML elements with the class 'sentiment'
+        sentiment_elements = soup.find_all('div')
+        print("\nSentiment Elements:")
+        print("--------------------")
+        for element in sentiment_elements:
+            print(element.text.strip())
+       
         # Extract the sentiment text using a more specific selector
         sentiment = soup.find('div')
         if sentiment:
             sentiment = sentiment.text.strip()
+            print("\nSentiment:")
+            print("----------")
+            print(sentiment)
         
         # Generate a response based on sentiment (custom logic here)
         sentiment_response = get_sentiment_response(sentiment)
@@ -156,6 +162,9 @@ def chatbot_response(msg):
     
     # If no response is found, return a default fallback response
     return "I'm sorry, I didn't understand that."
+from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, request
+
 
 def extract_year(message):
     """Extract the year (second, third, final) from the message"""
@@ -234,5 +243,30 @@ def timetable():
     else:
         return jsonify({'error': 'No timetable found'}), 404
     
+    
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
+    app.run()
+
+    #api integration
+
+import requests
+from bs4 import BeautifulSoup
+import random
+
+def call_sentiment_api(user_input):
+    # Your REST API URL
+   
+    api_url = "https://sentiment-analysis-vsj7.onrender.com"
+   
+    # Send the user input to the API
+    payload = {"text": user_input}
+    response = requests.post(api_url, data=payload)
+   
+    # Parse the HTML table in the response
+    soup = BeautifulSoup(response.text, 'html.parser')
+   
+    # Extract the sentiment from the table
+    sentiment_row = soup.find('tr')  # Find the first row of the table
+    sentiment = sentiment_row.find('td').text.strip()  # Extract the sentiment value (e.g., "positive")
+   
+    return ()
