@@ -102,8 +102,7 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 # Fit the model and save it
 hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
 
-# Save the model (using relative path)
+# Save the model (using Google Drive URL for easy retrieval)
 model_file_path = os.path.join(project_root, 'chatbot', 'model.h5')
 model.save(model_file_path)
-
 print("Model created and saved")
