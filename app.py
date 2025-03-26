@@ -1,3 +1,4 @@
+import os
 import nltk
 import pickle
 import numpy as np
@@ -16,18 +17,18 @@ nltk.download('popular')
 # Initialize the lemmatizer
 lemmatizer = WordNetLemmatizer()
 
-# Load the model and data
-model = load_model('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/model.h5')
-intents = json.loads(open('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/data.json').read())
-words = pickle.load(open('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/texts.pkl', 'rb'))
-classes = pickle.load(open('C:/Users/HP/OneDrive/Desktop/AIML PROJECTS/chatbot/chatbot-flask/chatbot/labels.pkl', 'rb'))
+# Load the model and data using relative paths
+model = load_model(os.path.join(os.getcwd(), 'chatbot', 'model.h5'))
+intents = json.loads(open(os.path.join(os.getcwd(), 'chatbot', 'data.json')).read())
+words = pickle.load(open(os.path.join(os.getcwd(), 'chatbot', 'texts.pkl'), 'rb'))
+classes = pickle.load(open(os.path.join(os.getcwd(), 'chatbot', 'labels.pkl'), 'rb'))
 
-# MySQL database connection configuration
+# MySQL database connection configuration (use environment variables for sensitive data)
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'Rohit41',
-    'database': 'chatbot'
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER', 'root'),
+    'password': os.getenv('DB_PASSWORD', 'Rohit41'),
+    'database': os.getenv('DB_NAME', 'chatbot')
 }
 
 def connect_db():
@@ -162,9 +163,6 @@ def chatbot_response(msg):
     
     # If no response is found, return a default fallback response
     return "I'm sorry, I didn't understand that."
-from flask import Flask, request, jsonify, render_template
-from flask import Flask, render_template, request
-
 
 def extract_year(message):
     """Extract the year (second, third, final) from the message"""
@@ -243,30 +241,5 @@ def timetable():
     else:
         return jsonify({'error': 'No timetable found'}), 404
     
-    
 if __name__ == "__main__":
-    app.run()
-
-    #api integration
-
-import requests
-from bs4 import BeautifulSoup
-import random
-
-def call_sentiment_api(user_input):
-    # Your REST API URL
-   
-    api_url = "https://sentiment-analysis-vsj7.onrender.com"
-   
-    # Send the user input to the API
-    payload = {"text": user_input}
-    response = requests.post(api_url, data=payload)
-   
-    # Parse the HTML table in the response
-    soup = BeautifulSoup(response.text, 'html.parser')
-   
-    # Extract the sentiment from the table
-    sentiment_row = soup.find('tr')  # Find the first row of the table
-    sentiment = sentiment_row.find('td').text.strip()  # Extract the sentiment value (e.g., "positive")
-   
-    return ()
+    app.run(host='0.0.0.0', port=5000, debug=False)
