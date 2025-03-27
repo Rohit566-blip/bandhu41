@@ -40,13 +40,13 @@
             {
                 "tag": "Creation_of_bandhu",
                 "patterns": ["who created you"],
-                "responses": ["I was created by Team BANDHU. The team members are: 1. Vidit Khairkar 2. Falguni Kalambe 3. Samyak Manwatkar 4. Yash Kakde 5. Prerna Dhale 6. Saniya Pathan 7. Khushi Ghatode 8. Rohit Khadse"],
+                "responses": ["I was created by Team BANDHU. The team members are:  1. Prerna Dhale 2. Saniya Pathan 3. Khushi Ghatode 4. Rohit Khadse"],
                 "context": [""]
             },
             {
                 "tag": "Rohit_info",
                 "patterns": ["Who is Rohit?", "Who is Rohit Khadse?"],
-                "responses": ["Rohit Khadse is a 3rd-year AIML student and CR, currently pursuing his B.Tech degree from SB Jain College. He has worked on Backend and Testing in this project."],
+                "responses": ["Rohit Khadse is a 3rd-year AIML student , currently pursuing his B.Tech degree from SB Jain College. He has worked on Backend and Testing in this project."],
                 "context": [""]
             },
             {
@@ -89,7 +89,7 @@
                         "Thursday": ["10:30 AM - 11:30 AM → ED (RA)", "11:30 AM - 12:30 PM → OS (YN)", "12:30 PM - 1:30 PM → DBMS (AY)", "2:30 PM - 3:30 PM → OEC-II", "3:30 PM - 5:30 PM → MDM"],
                         "Friday": ["10:30 AM - 11:30 AM → FAI (AC)", "12:30 PM - 1:30 PM → ADAUS (RA, MG, AC)", "2:30 PM - 3:30 PM → DBMS (AY)", "3:30 PM - 4:30 PM → EVS (DR)"],
                         "Saturday": ["10:30 AM - 11:30 AM → DBMS (AY)", "12:30 PM - 1:30 PM → OS (YN, SL)", "2:30 PM - 3:30 PM → Club Hour"],
-                        "Sunday": []
+                        "Sunday": ["ENJOY YOUR WEEKEND"]
                     },
                     "AIML_6": {
                         "Monday": ["9:00 AM - 10:00 AM → ML (ABC)", "10:00 AM - 11:00 AM → DS (XYZ)", "11:00 AM - 12:00 PM → AI (PQR)", "2:00 PM - 3:00 PM → IoT (LMN)"],
@@ -98,7 +98,7 @@
                         "Thursday": ["9:00 AM - 10:00 AM → IoT (LMN)", "10:00 AM - 11:00 AM → ML (ABC)", "11:00 AM - 12:00 PM → Cloud Computing (GHI)"],
                         "Friday": ["9:00 AM - 10:00 AM → AI (PQR)", "10:00 AM - 11:00 AM → Big Data (UVW)", "11:00 AM - 12:00 PM → IoT (LMN)"],
                         "Saturday": ["10:00 AM - 12:00 PM → Project Work"],
-                        "Sunday": []
+                        "Sunday": ["ENJOY YOUR WEEKEND"]
                     },
                     "AIDS_4": {
                         "Monday": ["10:30 AM - 11:30 AM → DA (LMN)", "11:30 AM - 12:30 PM → CN (XYZ)", "12:30 PM - 1:30 PM → SE (ABC)"],
@@ -107,7 +107,7 @@
                         "Thursday": ["10:30 AM - 11:30 AM → DA (LMN)", "11:30 AM - 12:30 PM → SE (ABC)", "12:30 PM - 1:30 PM → CN (XYZ)"],
                         "Friday": ["10:30 AM - 11:30 AM → Web Tech (UVW)", "11:30 AM - 12:30 PM → CN (XYZ)", "12:30 PM - 1:30 PM → DA (LMN)"],
                         "Saturday": ["10:00 AM - 12:00 PM → Project Work"],
-                        "Sunday": []
+                        "Sunday": ["ENJOY YOUR WEEKEND"]
                     }
                 }
             }
