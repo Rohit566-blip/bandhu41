@@ -1,93 +1,121 @@
-import nltk
 import os
+import nltk
 import json
 import pickle
-import random
+import requests
 import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.optimizers import SGD
+import random
 from nltk.stem import WordNetLemmatizer
+from keras.models import Sequential
+from keras.layers import Dense, Activation, Dropout
+from keras.optimizers import SGD
 
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('wordnet')
 
+# Initialize the lemmatizer
 lemmatizer = WordNetLemmatizer()
 
-# Define the path to your project folder, this is used for relative paths
-project_root = os.getcwd()
+# Google Drive file links
+DATA_URL = "https://drive.google.com/uc?id=1ChW3P16BGe2PCjt6HOBNdEZ-HlAcfD4j"
+LABELS_URL = "https://drive.google.com/uc?id=1YZIFB--oQVvUsJZOQUtbrhHdq_Lu1xWA"
+TEXTS_URL = "https://drive.google.com/uc?id=1BdDCmrdzS9scIBmbS7YKyfQg_oZq29gD"
 
-# Load the data (using relative path)
-data_file_path = os.path.join(project_root, 'chatbot', 'data.json')
-data_file = open(data_file_path).read()
-intents = json.loads(data_file)
+# Define file paths
+DATA_PATH = os.path.join(os.getcwd(), 'chatbot', 'data.json')
+LABELS_PATH = os.path.join(os.getcwd(), 'chatbot', 'labels.pkl')
+TEXTS_PATH = os.path.join(os.getcwd(), 'chatbot', 'texts.pkl')
 
+# Ensure chatbot directory exists
+os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
+
+def download_file(url, path, file_desc, is_json=False):
+    """Download a file from Google Drive and save it locally."""
+    try:
+        print(f"Downloading {file_desc}...")
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+
+        if is_json:
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(response.json(), f, indent=4)
+        else:
+            with open(path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk:
+                        f.write(chunk)
+        
+        print(f"{file_desc} download complete.")
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading {file_desc}: {e}")
+
+# Download required files if missing
+if not os.path.exists(DATA_PATH):
+    download_file(DATA_URL, DATA_PATH, "data.json", is_json=True)
+
+if not os.path.exists(LABELS_PATH):
+    download_file(LABELS_URL, LABELS_PATH, "labels.pkl")
+
+if not os.path.exists(TEXTS_PATH):
+    download_file(TEXTS_URL, TEXTS_PATH, "texts.pkl")
+
+# Load data.json
+with open(DATA_PATH, 'r', encoding='utf-8') as file:
+    intents = json.load(file)
+
+# Preprocessing data
 words = []
 classes = []
 documents = []
 ignore_words = ['?', '!']
 
-# Process the intents and create the word list and classes
 for intent in intents['intents']:
     for pattern in intent['patterns']:
-        # Tokenize each word
         w = nltk.word_tokenize(pattern)
         words.extend(w)
-        # Add documents in the corpus
         documents.append((w, intent['tag']))
-
-        # Add to our classes list
         if intent['tag'] not in classes:
             classes.append(intent['tag'])
 
-# Lemmatize and lower each word, and remove duplicates
+# Lemmatize words
 words = [lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_words]
 words = sorted(list(set(words)))
-
-# Sort classes
 classes = sorted(list(set(classes)))
 
-# Print the lengths of the processed data
 print(f"{len(documents)} documents")
 print(f"{len(classes)} classes: {classes}")
-print(f"{len(words)} unique lemmatized words: {words}")
+print(f"{len(words)} unique lemmatized words")
 
-# Save words and classes to pickle files (using relative path)
-pickle.dump(words, open(os.path.join(project_root, 'chatbot', 'texts.pkl'), 'wb'))
-pickle.dump(classes, open(os.path.join(project_root, 'chatbot', 'labels.pkl'), 'wb'))
+# Save words and classes
+pickle.dump(words, open(TEXTS_PATH, 'wb'))
+pickle.dump(classes, open(LABELS_PATH, 'wb'))
 
-# Create our training data
+# Creating training data
 training = []
 output_empty = [0] * len(classes)
 
-# Create bag of words for each sentence
 for doc in documents:
-    # Initialize our bag of words
     bag = [0] * len(words)
-    # List of tokenized words for the pattern
-    pattern_words = doc[0]
-    # Lemmatize each word to create a base word
-    pattern_words = [lemmatizer.lemmatize(word.lower()) for word in pattern_words]
-    # Create the bag of words array with 1 if word match found in current pattern
+    pattern_words = [lemmatizer.lemmatize(word.lower()) for word in doc[0]]
+    
     for pattern_word in pattern_words:
         for i, w in enumerate(words):
             if w == pattern_word:
                 bag[i] = 1
-    # Output is a '0' for each tag and '1' for the current tag (for each pattern)
+    
     output_row = list(output_empty)
     output_row[classes.index(doc[1])] = 1
     training.append([bag, output_row])
 
-# Shuffle the training data and convert to np.array
 random.shuffle(training)
 training = np.array(training, dtype=object)
 train_x = np.array(list(training[:, 0]), dtype=float)
 train_y = np.array(list(training[:, 1]), dtype=float)
 
-print("Training data created")
+print("Training data created.")
 
-# Create the model - 3 layers: 128 neurons in the first layer, 64 neurons in the second layer, and output layer with neurons equal to the number of classes
+# Build model
 model = Sequential()
 model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
 model.add(Dropout(0.5))
@@ -95,14 +123,12 @@ model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(len(train_y[0]), activation='softmax'))
 
-# Compile the model. Stochastic gradient descent with Nesterov accelerated gradient gives good results for this model
+# Compile model
 sgd = SGD(learning_rate=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
-# Fit the model and save it
-hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
+# Train and save model
+hist = model.fit(train_x, train_y, epochs=200, batch_size=5, verbose=1)
+model.save(os.path.join(os.getcwd(), 'chatbot', 'model.h5'), hist)
 
-# Save the model (using Google Drive URL for easy retrieval)
-model_file_path = os.path.join(project_root, 'chatbot', 'model.h5')
-model.save(model_file_path)
-print("Model created and saved")
+print("Model training complete and saved as 'model.h5'.")
