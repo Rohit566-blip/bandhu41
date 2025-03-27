@@ -1,9 +1,10 @@
-{
+[
+    {
         "intents": [
             {
                 "tag": "greeting",
-                "patterns": ["Hi", "Hello", "Hey","how are you?"],
-                "responses": ["Hello! How can I assist you?", "I'am just doing fine,how are you?,How can i assist you today?"],
+                "patterns": ["Hi", "Hello", "Hey", "how are you?"],
+                "responses": ["Hello! How can I assist you?", "I'm just doing fine, how are you? How can I assist you today?"],
                 "context": [""]
             },
             {
@@ -18,175 +19,98 @@
                 "responses": ["You're welcome!", "No problem."],
                 "context": [""]
             },
-            {   "tag": "options",
-                "patterns": ["what is your name","who are you"],
-                "responses": ["Hey there! I'm Bandhu, the chatbot from the Emergicon department.How can I assist you today?" ],
+            {
+                "tag": "options",
+                "patterns": ["what is your name", "who are you"],
+                "responses": ["Hey there! I'm Bandhu, the chatbot from the Emergicon department. How can I assist you today?"],
                 "context": [""]
             },
-           {
+            {
                 "tag": "Department_info",
                 "patterns": ["who is the hod of department?"],
-                "responses": ["Dr.Hemant Turkar is the HOD of the department"],
+                "responses": ["Dr. Hemant Turkar is the HOD of the department."],
                 "context": [""]
             },
             {
                 "tag": "establish_info",
-                "patterns": ["when was the emgering department was formed/establish?"],
-                "responses": ["The Emgering Department was formed on 2021.","The Emgering Department was establish on 2021" ],
-                "context": [""]
-            },
-            {
-                "tag": "noanswer",
-                "patterns": [],
-                "responses": ["I'm sorry, I didn't understand that."],
+                "patterns": ["when was the emerging department formed?", "when was the emerging department established?"],
+                "responses": ["The Emerging Department was formed in 2021.", "The Emerging Department was established in 2021."],
                 "context": [""]
             },
             {
                 "tag": "Creation_of_bandhu",
                 "patterns": ["who created you"],
-                "responses": ["I was Created by Team BANDHU ,the team members of bandhu are :- 1.Vidit Khairkar 2.Falguni Kalambe 3.Samyak Manwatkar 4.Yash kakde 5.Prerna Dhale 6.Saniya pathan 7.Khushi Ghatode 8.Rohit Khadse"],
+                "responses": ["I was created by Team BANDHU. The team members are: 1. Vidit Khairkar 2. Falguni Kalambe 3. Samyak Manwatkar 4. Yash Kakde 5. Prerna Dhale 6. Saniya Pathan 7. Khushi Ghatode 8. Rohit Khadse"],
                 "context": [""]
             },
             {
                 "tag": "Rohit_info",
-                "patterns": ["Who is rohit?/who is Rohit khadse"],
-                "responses": ["Rohit khadse is a 3rd year AIML student an CR. currently pursing is B.tech degree from SB Jain collage and Rohit has done Backend an Testing in this project "],
+                "patterns": ["Who is Rohit?", "Who is Rohit Khadse?"],
+                "responses": ["Rohit Khadse is a 3rd-year AIML student and CR, currently pursuing his B.Tech degree from SB Jain College. He has worked on Backend and Testing in this project."],
                 "context": [""]
-
             },
             {
                 "tag": "Khushi_info",
-                "patterns": ["Who is Khushi?/who is Khushi Ghatode"],
-                "responses": ["Khushi Ghatode is a 3rd year student of sb jain college currently pursing is B.tech degree  and khushi has done Backend in this project"],
+                "patterns": ["Who is Khushi?", "Who is Khushi Ghatode?"],
+                "responses": ["Khushi Ghatode is a 3rd-year student at SB Jain College, currently pursuing her B.Tech degree. She has contributed to the Backend of this project."],
                 "context": [""]
-
             },
             {
                 "tag": "Saniya_info",
-                "patterns": ["Who is Saniya?/who is Saniya Pathan"],
-                "responses": ["Saniya is a 3rd year student of sb jain college currently pursing is B.tech degree  and Saniya has contributed frontendend in this project"],
+                "patterns": ["Who is Saniya?", "Who is Saniya Pathan?"],
+                "responses": ["Saniya Pathan is a 3rd-year student at SB Jain College, currently pursuing her B.Tech degree. She has contributed to the Frontend of this project."],
                 "context": [""]
-
             },
             {
                 "tag": "Prerna_info",
-                "patterns": ["Who is Prerna?/who is prerna dhale"],
-                "responses": ["prerna is a 3rd year student of sb jain college currently pursing is B.tech degree and prerna has contributed UI-UX in this project"],
-                "context": [""]
-
-            },
-            {
-                "tag": "student_info",
-                "patterns": ["how many students are there in department?","how many students are there in 3 year AIML?","how many students are there in 3 year AIDS?"],
-                "responses": ["The number of students in the department is currently 280.","There are currently 70 students in 3 year AIML","There are currently 70 students in 3 year AIDS"],
+                "patterns": ["Who is Prerna?", "Who is Prerna Dhale?"],
+                "responses": ["Prerna Dhale is a 3rd-year student at SB Jain College, currently pursuing her B.Tech degree. She has contributed to the UI/UX design of this project."],
                 "context": [""]
             },
             {
-                "tag": "chai_wala",
-                "patterns": ["order chai"],
-                "responses": ["get your chai at ur place in 2 mins , contact chotu chai wala - +919028985009"],
+                "tag": "kenshu_event",
+                "patterns": ["What is the Kenshu event?"],
+                "responses": ["The Kenshu event is an annual technical symposium organized by the department. It includes technical competitions, workshops, and seminars, providing a platform for students to showcase their talents and learn from experts in the field."],
                 "context": [""]
-        },
-        {
-            "tag": "department_events_seminars",
-            "patterns": [
-                "Can you provide information about department events or seminars?"
-            ],
-            "responses": [
-                "The department regularly organizes various events and seminars. For detailed information, you can visit the department notice board or check the department website."
-            ],
-            "context": ""
-        },
-        {
-            "tag": "technical_events",
-            "patterns": [
-                "Which technical event have been organised in the department so far?"
-            ],
-            "responses": [
-                "Several technical events have been organized in the department, including workshops, hackathons, and guest lectures. For specific information, you can check the department's event calendar or contact the department faculty."
-            ],
-            "context": [""]
-        },
-        {
-            "tag": "training_placement_activities",
-            "patterns": [
-                "What training and placement related activity does the department conduct?"
-            ],
-            "responses": [
-                "The department conducts various training and placement activities, such as mock interviews, resume building workshops, and industry interactions, to enhance students' employability and facilitate placements."
-            ],
-            "context": [""]
-        },
-        {
-            "tag": "kenshu_event",
-            "patterns": ["What is the Kenshu event?"],
-            "responses": ["The Kenshu event is an annual technical symposium organized by the department. It includes technical competitions, workshops, and seminars, providing a platform for students to showcase their talents and learn from experts in the field."],
-            "context": [""]
-        },
-        {
-            "tag": "gate_policy",
-            "patterns": [
-                "Is there any gate related policy in the department?"
-            ],
-            "responses": [
-                "Yes, the department has a gate policy to ensure security and regulate access to certain areas within the department premises. Details of the policy can be obtained from the department office."
-            ],
-            "context": [""]
-        },
-        {
-            "tag": "internship_opportunities",
-            "patterns": [
-                "Are there any internship or co-op opportunities available through the department?"
-            ],
-            "responses": [
-                "Yes, the department facilitates internship and co-op opportunities for students with various organizations. Students can inquire about available opportunities at the department's placement cell."
-            ],
-            "context": ""
-        },
-        {
-            "tag": "open_elective_course",
-            "patterns": [
-                "Can I take an open elective course outside of my department?"
-            ],
-            "responses": [
-                "Yes, you can take an open elective course offered by other departments, subject to approval and availability of seats. Please check with your academic advisor for more information."
-            ],
-            "context": ""
-        },
-        {
-            "tag": "open_elective_own_branch",
-            "patterns": [
-                "Can I take an open elective of my own branch?"
-            ],
-            "responses": [
-                "Yes, you can take an open elective course offered by your own department, provided it is listed as an open elective option. Please consult the department's academic office for more details."
-            ],
-            "context": ""
-        },
-        {
-            "tag": "clubs_in_department",
-            "patterns": [
-                "How many clubs are available in the department?"
-            ],
-            "responses": [
-                "There are several clubs in the department, including technical, cultural, and sports clubs. Some of the prominent clubs include the  Coding Club, and Cultural Club. For a complete list, you can visit the department notice board or website."
-            ],
-            "context": ""
-        },
-        {
-            "tag": "department_president",
-            "patterns": [
-                "Who is the president of the department?"
-            ],
-            "responses": [
-                "The president of the department is Dr.Himanshu Srivastav He provides leadership and oversees the department's activities and initiatives. You can contact the department office for more information."
-            ],
-            "context": ""
-        }
-    ]
-}
-    
-
-
-
-     
+            },
+            {
+                "tag": "timetable",
+                "patterns": ["Timetable {branch} {day}"],
+                "responses": ["Here is the timetable for {branch} on {day}: {schedule}"],
+                "context": [""]
+            },
+            {
+                "tag": "timetable_data",
+                "data": {
+                    "AIML_4": {
+                        "Monday": ["10:30 AM - 11:30 AM → MDM", "11:30 AM - 12:30 PM → OS (YN)", "12:30 PM - 1:30 PM → EVS (DR)", "2:30 PM - 3:30 PM → OEC-II", "4:30 PM - 5:30 PM → DBMS (AY)"],
+                        "Tuesday": ["11:30 AM - 1:30 PM → ADAUS Lab (RA, MG, AC)", "2:30 PM - 3:30 PM → OEC-II", "3:30 PM - 5:30 PM → Business Communication (DC)"],
+                        "Wednesday": ["10:30 AM - 11:30 AM → OS (YN)", "11:30 AM - 12:30 PM → ED (RA)", "12:30 PM - 1:30 PM → FAI (AC)", "2:30 PM - 3:30 PM → OEC-II", "3:30 PM - 4:30 PM → MDM"],
+                        "Thursday": ["10:30 AM - 11:30 AM → ED (RA)", "11:30 AM - 12:30 PM → OS (YN)", "12:30 PM - 1:30 PM → DBMS (AY)", "2:30 PM - 3:30 PM → OEC-II", "3:30 PM - 5:30 PM → MDM"],
+                        "Friday": ["10:30 AM - 11:30 AM → FAI (AC)", "12:30 PM - 1:30 PM → ADAUS (RA, MG, AC)", "2:30 PM - 3:30 PM → DBMS (AY)", "3:30 PM - 4:30 PM → EVS (DR)"],
+                        "Saturday": ["10:30 AM - 11:30 AM → DBMS (AY)", "12:30 PM - 1:30 PM → OS (YN, SL)", "2:30 PM - 3:30 PM → Club Hour"],
+                        "Sunday": []
+                    },
+                    "AIML_6": {
+                        "Monday": ["9:00 AM - 10:00 AM → ML (ABC)", "10:00 AM - 11:00 AM → DS (XYZ)", "11:00 AM - 12:00 PM → AI (PQR)", "2:00 PM - 3:00 PM → IoT (LMN)"],
+                        "Tuesday": ["10:00 AM - 12:00 PM → ML Lab (DEF)", "2:00 PM - 3:00 PM → Big Data (UVW)", "3:00 PM - 4:00 PM → Cloud Computing (GHI)"],
+                        "Wednesday": ["9:00 AM - 10:00 AM → AI (PQR)", "10:00 AM - 11:00 AM → DS (XYZ)", "11:00 AM - 12:00 PM → ML (ABC)"],
+                        "Thursday": ["9:00 AM - 10:00 AM → IoT (LMN)", "10:00 AM - 11:00 AM → ML (ABC)", "11:00 AM - 12:00 PM → Cloud Computing (GHI)"],
+                        "Friday": ["9:00 AM - 10:00 AM → AI (PQR)", "10:00 AM - 11:00 AM → Big Data (UVW)", "11:00 AM - 12:00 PM → IoT (LMN)"],
+                        "Saturday": ["10:00 AM - 12:00 PM → Project Work"],
+                        "Sunday": []
+                    },
+                    "AIDS_4": {
+                        "Monday": ["10:30 AM - 11:30 AM → DA (LMN)", "11:30 AM - 12:30 PM → CN (XYZ)", "12:30 PM - 1:30 PM → SE (ABC)"],
+                        "Tuesday": ["10:00 AM - 12:00 PM → DA Lab (PQR)", "2:00 PM - 3:00 PM → Web Tech (UVW)"],
+                        "Wednesday": ["10:30 AM - 11:30 AM → CN (XYZ)", "11:30 AM - 12:30 PM → SE (ABC)", "12:30 PM - 1:30 PM → Web Tech (UVW)"],
+                        "Thursday": ["10:30 AM - 11:30 AM → DA (LMN)", "11:30 AM - 12:30 PM → SE (ABC)", "12:30 PM - 1:30 PM → CN (XYZ)"],
+                        "Friday": ["10:30 AM - 11:30 AM → Web Tech (UVW)", "11:30 AM - 12:30 PM → CN (XYZ)", "12:30 PM - 1:30 PM → DA (LMN)"],
+                        "Saturday": ["10:00 AM - 12:00 PM → Project Work"],
+                        "Sunday": []
+                    }
+                }
+            }
+        ]
+    }
+]
