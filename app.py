@@ -63,7 +63,7 @@ if not os.path.exists(TEXTS_PATH):
 
 # Load the model
 model = load_model(MODEL_PATH)
-print("Model loaded successfully.")
+print("MODEL loaded successfully.")
 
 # Load chatbot data
 with open(DATA_PATH, 'r', encoding='utf-8') as file:
