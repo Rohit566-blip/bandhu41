@@ -3,9 +3,9 @@ import nltk
 import pickle
 import numpy as np
 import requests
-from keras.models import load_model
 import json
 import random
+from keras.models import load_model
 from flask import Flask, render_template, request, jsonify
 import mysql.connector
 from nltk.stem import WordNetLemmatizer
@@ -17,31 +17,59 @@ nltk.download('popular')
 # Initialize the lemmatizer
 lemmatizer = WordNetLemmatizer()
 
-# Google Drive model link
-MODEL_PATH = os.path.join(os.getcwd(), 'chatbot', 'model.h5')
+# Google Drive file links
 MODEL_URL = "https://drive.google.com/uc?id=1QMySi59lofY2zJFOD4PqCDipw0Le9EH9"
+DATA_URL = "https://drive.google.com/uc?id=1ChW3P16BGe2PCjt6HOBNdEZ-HlAcfD4j"
+LABELS_URL = "https://drive.google.com/uc?id=1YZIFB--oQVvUsJZOQUtbrhHdq_Lu1xWA"
+TEXTS_URL = "https://drive.google.com/uc?id=1BdDCmrdzS9scIBmbS7YKyfQg_oZq29gD"
+
+# Define file paths
+MODEL_PATH = os.path.join(os.getcwd(), 'chatbot', 'model.h5')
+DATA_PATH = os.path.join(os.getcwd(), 'chatbot', 'data.json')
+LABELS_PATH = os.path.join(os.getcwd(), 'chatbot', 'labels.pkl')
+TEXTS_PATH = os.path.join(os.getcwd(), 'chatbot', 'texts.pkl')
 
 # Ensure chatbot directory exists
 os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
 
-# Download the model if it doesn't exist
+def download_file(url, path, file_desc):
+    """Download a file from Google Drive and save it locally."""
+    try:
+        print(f"Downloading {file_desc}...")
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        
+        with open(path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=1024):
+                if chunk:
+                    f.write(chunk)
+        
+        print(f"{file_desc} download complete.")
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading {file_desc}: {e}")
+
+# Download required files if missing
 if not os.path.exists(MODEL_PATH):
-    print("Downloading model from Google Drive...")
-    response = requests.get(MODEL_URL, stream=True)
-    with open(MODEL_PATH, 'wb') as f:
-        for chunk in response.iter_content(chunk_size=1024):
-            if chunk:
-                f.write(chunk)
-    print("Model download complete.")
+    download_file(MODEL_URL, MODEL_PATH, "model.h5")
+
+if not os.path.exists(DATA_PATH):
+    download_file(DATA_URL, DATA_PATH, "data.json")
+
+if not os.path.exists(LABELS_PATH):
+    download_file(LABELS_URL, LABELS_PATH, "labels.pkl")
+
+if not os.path.exists(TEXTS_PATH):
+    download_file(TEXTS_URL, TEXTS_PATH, "texts.pkl")
 
 # Load the model
 model = load_model(MODEL_PATH)
 print("Model loaded successfully.")
 
 # Load chatbot data
-intents = json.loads(open(os.path.join(os.getcwd(), 'chatbot', 'data.json')).read())
-words = pickle.load(open(os.path.join(os.getcwd(), 'chatbot', 'texts.pkl'), 'rb'))
-classes = pickle.load(open(os.path.join(os.getcwd(), 'chatbot', 'labels.pkl'), 'rb'))
+with open(DATA_PATH, 'r', encoding='utf-8') as file:
+    intents = json.load(file)
+words = pickle.load(open(TEXTS_PATH, 'rb'))
+classes = pickle.load(open(LABELS_PATH, 'rb'))
 
 # MySQL database connection configuration
 db_config = {
